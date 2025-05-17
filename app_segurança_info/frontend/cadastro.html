@@ -1,0 +1,42 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro</h1>
+        <form id="cadastroForm">
+            <input type="text" id="nome" placeholder="Nome" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="senha" placeholder="Senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p><a href="index.html">Voltar para login</a></p>
+    </div>
+
+    <script>
+    document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        const response = await fetch('http://127.0.0.1:8000/cadastrar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, senha })
+        });
+
+        if (response.ok) {
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'index.html';
+        } else {
+            alert('Erro ao cadastrar. Tente outro email.');
+        }
+    });
+    </script>
+</body>
+</html>
