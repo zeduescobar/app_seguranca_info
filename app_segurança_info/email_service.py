@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 SMTP_HOST = 'smtp.gmail.com'
 SMTP_PORT = 587
 SMTP_USER = 'bremas0104@gmail.com'
-SMTP_PASSWORD = 'zbrkfzivtclzseuu'  # SEM espaços!
+SMTP_PASSWORD = 'htjyotjqzdcmkmea'  
 
 async def enviar_email_reset(destinatario_email: str, token: str):
     corpo = f"Clique no link para resetar sua senha:\n\nhttp://127.0.0.1:8000/resetar-senha?token={token}"

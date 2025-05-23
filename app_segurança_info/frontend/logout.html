@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Logout</h1>
+    <form id="logoutForm">
+      <input type="number" id="usuario_id" placeholder="ID do usuário" required>
+      <button type="submit">Sair</button>
+    </form>
+    <p><a href="index.html">Voltar para login</a></p>
+  </div>
+
+  <script>
+    document.getElementById('logoutForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const usuario_id = document.getElementById('usuario_id').value;
+
+      const response = await fetch('http://127.0.0.1:8000/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario_id })
+      });
+
+      if (response.ok) {
+        alert('Logout realizado.');
+        window.location.href = 'index.html';
+      } else {
+        alert('Erro no logout.');
+      }
+    });
+  </script>
+</body>
+</html>

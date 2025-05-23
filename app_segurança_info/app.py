@@ -204,3 +204,8 @@ async def anonimizar_usuario(usuario_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"mensagem": "Usuário anonimizado com sucesso"}
+
+    return {
+    "mensagem": "Login realizado com sucesso",
+    "usuario_id": usuario.id
+}

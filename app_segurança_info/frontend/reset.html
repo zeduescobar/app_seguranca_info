@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resetar Senha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Resetar Senha</h1>
+    <form id="resetForm">
+      <input type="email" id="email" placeholder="Seu Email" required>
+      <button type="submit">Solicitar Reset</button>
+    </form>
+    <p><a href="index.html">Voltar para login</a></p>
+  </div>
+
+  <script>
+    document.getElementById('resetForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+
+      const response = await fetch('http://127.0.0.1:8000/reset-solicitar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (response.ok) {
+        alert('Verifique seu email para continuar.');
+        window.location.href = 'nova-senha.html';
+      } else {
+        alert('Erro ao solicitar reset.');
+      }
+    });
+  </script>
+</body>
+</html>

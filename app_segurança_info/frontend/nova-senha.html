@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Senha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Definir Nova Senha</h1>
+    <form id="novaSenhaForm">
+      <input type="text" id="token" placeholder="Token recebido por email" required>
+      <input type="password" id="novaSenha" placeholder="Nova senha" required>
+      <button type="submit">Alterar Senha</button>
+    </form>
+
+    <button type="button" onclick="reenviarToken()">Reenviar Token</button>
+    <p><a href="index.html">Voltar para login</a></p>
+  </div>
+
+  <script>
+    document.getElementById('novaSenhaForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const token = document.getElementById('token').value;
+      const nova_senha = document.getElementById('novaSenha').value;
+
+      const response = await fetch('http://127.0.0.1:8000/reset-confirmar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, nova_senha })
+      });
+
+      if (response.ok) {
+        alert('Senha alterada com sucesso.');
+        window.location.href = 'index.html';
+      } else {
+        alert('Erro ao alterar senha. Verifique se o token está correto ou expirou.');
+      }
+    });
+
+    async function reenviarToken() {
+      const email = prompt("Digite seu email para reenviar o token:");
+      if (!email) return;
+
+      const res = await fetch('http://127.0.0.1:8000/reset-solicitar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (res.ok) {
+        alert("Novo token enviado com sucesso.");
+      } else {
+        alert("Erro ao reenviar token.");
+      }
+    }
+  </script>
+</body>
+</html>

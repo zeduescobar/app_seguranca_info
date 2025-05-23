@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Excluir Conta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Excluir Conta</h1>
+    <form id="excluirForm">
+      <input type="number" id="usuario_id" placeholder="ID do usuário" required>
+      <button type="submit">Solicitar Exclusão</button>
+    </form>
+    <p><a href="index.html">Voltar</a></p>
+  </div>
+
+  <script>
+    document.getElementById('excluirForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const usuario_id = document.getElementById('usuario_id').value;
+
+      const response = await fetch('http://127.0.0.1:8000/solicitar-exclusao', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario_id })
+      });
+
+      if (response.ok) {
+        alert('Conta marcada para exclusão.');
+        window.location.href = 'index.html';
+      } else {
+        alert('Erro ao excluir.');
+      }
+    });
+  </script>
+</body>
+</html>
